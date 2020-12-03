@@ -9,7 +9,14 @@ services:
     ports:
       - "9090:9090"
   grafana:
-    image: grafana/grafana
+    build: grafana
+    volumes:
+      - ./grafana/prometheus-datasource.yml:/etc/grafana/provisioning/datasources/prometheus-datasource.yml
+      - ./grafana/slack-notify.yml:/slack-notify.yaml
+      - ./grafana/dashboard-importer.yml:/etc/grafana/provisioning/dashboards/dashboard-importer.yml
+      - ./grafana/sampleapp-dashboard.json:/etc/grafana/provisioning/dashboards/sampleapp-dashboard.json
+    environment:
+      slack_url: https://hooks.slack.com/services/...
     ports:
       - "9091:3000"
   sampleapp:

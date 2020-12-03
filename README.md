@@ -11,7 +11,7 @@ Dependencies
 Usage
 -----
 
-Clone the repo, then start the application using `docker-compose`
+Clone the repo first. If you need slack notifications, then set `services.grafana.environment.slack_url` in `docker-compose.yml`. Then start the application using `docker-compose`
 ```
 $ docker-compose -f docker-compose.yml up
 ```
