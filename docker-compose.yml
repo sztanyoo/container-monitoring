@@ -1,5 +1,6 @@
 version: '3.3'
 services:
+
   prometheus:
     image: prom/prometheus
     volumes:
@@ -8,6 +9,7 @@ services:
     restart: always
     ports:
       - "9090:9090"
+
   grafana:
     build: grafana
     volumes:
@@ -16,12 +18,14 @@ services:
       - ./grafana/dashboard-importer.yml:/etc/grafana/provisioning/dashboards/dashboard-importer.yml
       - ./grafana/sampleapp-dashboard.json:/etc/grafana/provisioning/dashboards/sampleapp-dashboard.json
     environment:
-      slack_url: https://hooks.slack.com/services/...
+      slack_url: https://hooks.slack.com/services/ENTER_YOUR_SLACK_ID_HERE
     ports:
       - "9091:3000"
+
   sampleapp:
     build: sampleapp
     ports:
       - "9092:8080"
+
 volumes:
   prometheus-data:

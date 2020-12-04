@@ -4,8 +4,12 @@ import socket
 import random
 import os
 import time
+import math
 
 app = Flask(__name__)
+
+success=math.floor(time.time())
+failure=0
 
 @app.route("/")
 def main():
@@ -13,11 +17,15 @@ def main():
 
 @app.route("/metrics")
 def metrics():
+    global success
+    success += math.floor(random.random()*1000)
+    global failure
+    failure += math.floor(random.random()*100)
     return render_template('metrics.html',
                            name=socket.gethostname(),
                            login_time=random.random(),
-                           transaction_count_success=time.time()+random.random()-0.5,
-                           transaction_count_failed=0.000000001*time.time()*random.random())
+                           transaction_count_success=success,
+                           transaction_count_failed=failure)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
